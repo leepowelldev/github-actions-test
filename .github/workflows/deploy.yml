@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+
+      # - name: Validate composer.json and composer.lock
+      #   run: composer validate
+
+      # - name: Install dependencies
+      #   run: composer install --prefer-dist --no-progress --no-suggest
+
+      # - name: Setup Node.js environment
+      #   uses: actions/setup-node@v1.4.2
+
+      # - name: NPM install
+      #   run: npm install
+
+      # - name: NPM build
+      #   run: npm run build:production
+
+      # - name: Deploy
+      #   id: deploy
+      #   uses: Pendect/action-rsyncer@v1.1.0
+      #   env:
+      #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+      #   with:
+      #     flags: -avz --dry-run
+      #     options: --include-from=".deploy-whitelist" --exclude="*"
+      #     ssh_options: -p 7822
+      #     src: '.'
+      #     dest: '${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/${{ secrets.DEPLOY_USER }}/www/production_test'
+
+      # - name: Display status from deploy
+      #   run: echo ${{ steps.deploy.outputs.status }}
