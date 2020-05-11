@@ -17,7 +17,7 @@ jobs:
       - name: Backup
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: tar -czf /home/${{ secrets.DEPLOY_USER }}/staging_backup.tar.gz $DEPLOY_PATH
+          command: 'tar -czf /home/${{ secrets.DEPLOY_USER }}/staging_backup.tar.gz $DEPLOY_PATH'
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           privateKey: ${{ secrets.DEPLOY_KEY}}
