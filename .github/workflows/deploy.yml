@@ -2,28 +2,28 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - deploy_*
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    defaults:
-      host: ${{ secrets.DEPLOY_HOST }}
-      username: ${{ secrets.DEPLOY_USER }}
-      privateKey: ${{ secrets.DEPLOY_KEY}}
-      port: 7822
-    env:
-      DEPLOY_PATH: '/home/${{ secrets.DEPLOY_USER }}/www/staging.norwichbabyscan.co.uk'
+    # env:
+      # DEPLOY_PATH: '/home/${{ secrets.DEPLOY_USER }}/www/staging.norwichbabyscan.co.uk'
     steps:
       - uses: actions/checkout@v2
 
-      - name: Backup
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: tar -czf /home/${{ secrets.DEPLOY_USER }}/staging_backup.tar.gz ${{ env. DEPLOY_PATH }}
+      - run: echo 'Hello world'
 
+      # - name: Backup
+      #   uses: garygrossgarten/github-action-ssh@release
+      #   with:
+      #     command: tar -czf /home/${{ secrets.DEPLOY_USER }}/staging_backup.tar.gz ${{ env. DEPLOY_PATH }}
+      #     host: ${{ secrets.DEPLOY_HOST }}
+      #     username: ${{ secrets.DEPLOY_USER }}
+      #     privateKey: ${{ secrets.DEPLOY_KEY}}
+      #     port: 7822
 
       # - name: Create Release
       #   id: create_release
