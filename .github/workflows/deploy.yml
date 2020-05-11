@@ -21,6 +21,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           privateKey: ${{ secrets.DEPLOY_KEY}}
+          port: 7822
 
       # - name: Create Release
       #   id: create_release
